@@ -1,0 +1,17 @@
+{
+    "env": {
+        "node": true,
+        "mocha": true
+    },
+    "extends": "airbnb-base",
+    "rules": {
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
+}
