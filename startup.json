@@ -1,0 +1,7 @@
+{
+  "apps": [{
+    "name": "Mei-Bo",
+    "script": "./index.js",
+    "watch": true
+  }]
+}
