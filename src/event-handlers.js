@@ -62,18 +62,17 @@ const eventHandlers = {
         if (message.isGroup) {
           sender = `(Group: ${thread.name}) ${sender}`
         }
-        if (/@Mei Bo/.test(messageBody)) {
-          switch (true) {
-            case /\/help/.test(messageBody):
-              getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" 指令範例： @Mei Bo /[command]\n可用指令：\n/version 顯示當前版本號\n/help 列出此說明\n窩目前還笨笨ㄅ會做其他事，之後一定會變聰明的！`)
-              break
-            case /\/version/.test(messageBody):
-              getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" Mei Bo v${info.version}`)
-              break
-            default:
-              getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" [Mei Bo v${info.version}]\nHi, 窩是機器人🤖️梅寶🤖️，請多多喵嗚\n指令說明請輸入 @Mei Bo /help`)
-              break
-          }
+
+        switch (/@Mei Bo/.test(messageBody)) {
+          case /\/help/.test(messageBody):
+            getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" 指令範例： @Mei Bo /[command]\n可用指令：\n/version 顯示當前版本號\n/help 列出此說明\n窩目前還笨笨ㄅ會做其他事，之後一定會變聰明的！`)
+            break
+          case /\/version/.test(messageBody):
+            getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" Mei Bo v${info.version}`)
+            break
+          default:
+            getCommandHandler("message").call(this, `message "${message.isGroup ? thread.name : sender}" [Mei Bo v${info.version}]\nHi, 窩是機器人🤖️梅寶🤖️，請多多喵嗚\n指令說明請輸入 @Mei Bo /help`)
+            break
         }
 
         if (message.attachments.length > 0) {
