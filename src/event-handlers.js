@@ -52,7 +52,9 @@ class Game {
     }
   }
   vote(id, vid) {
-    if (!this.playerSet[this.player.indexOf(vid)].voted && this.playerSet[id].live) {
+    if (this.playerSet[this.player.indexOf(vid)].live) {
+      this.say(`${vid}: 死人不能投票！`)
+    } else if (!this.playerSet[this.player.indexOf(vid)].voted && this.playerSet[id].live) {
       this.playerSet[id].vote += 1
       this.playerSet[this.player.indexOf(vid)].voted = true
       this.say(`${this.playerSet[id].vote} 人已投給 ${this.playerSet[id].name}`)
