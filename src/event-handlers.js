@@ -106,7 +106,7 @@ class Game {
   get init() {
     this.say("系統已私下告知個人角色身份")
     this.player.forEach((e, i) => {
-      if (i < 3) {
+      if (i < 4) {
         this.playerSet.push({ type: playerTypes[i], name: e, live: true, vote: 0, voted: false })
         this.pm(e, `尼的身份為 ${playerTypes[i]}`)
       } else {
