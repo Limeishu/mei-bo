@@ -1,0 +1,26 @@
+{
+  "name": "mei-bo",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "repository": "https://github.com/Limeishu/mei-bo.git",
+  "description": "資訊組御用聊天群組機器人🤖️梅寶🤖️",
+  "author": "Aries Cs <aries0d0f@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "./node_modules/.bin/ts-node server/index.ts",
+    "lint": "./node_modules/.bin/tslint -c tslint.json --project tsconfig.json",
+    "lint:fix": "./node_modules/.bin/tslint -c tslint.json --project tsconfig.json --fix"
+  },
+  "dependencies": {
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "koa": "^2.7.0",
+    "koa-bodyparser-ts": "^0.3.1",
+    "koa-route": "^3.2.0",
+    "tslint": "^5.18.0",
+    "uuid": "^3.3.2"
+  }
+}
