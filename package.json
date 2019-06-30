@@ -16,9 +16,10 @@
     "typescript": "^3.5.2"
   },
   "devDependencies": {
-    "cors": "^2.8.5",
+    "@koa/cors": "^3.0.0",
     "koa": "^2.7.0",
-    "koa-bodyparser-ts": "^0.3.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
     "koa-route": "^3.2.0",
     "tslint": "^5.18.0",
     "uuid": "^3.3.2"
