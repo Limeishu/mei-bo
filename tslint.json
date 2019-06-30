@@ -10,7 +10,6 @@
     "arrow-parens": false,
     "ordered-imports": false,
     "no-consecutive-blank-lines": false,
-    "interface-name": [true, "never-prefix"],
     "new-parens": true,
     "import-spacing": false,
     "no-arg": true,
