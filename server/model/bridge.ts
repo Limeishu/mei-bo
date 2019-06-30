@@ -1,9 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
+import { ITGServerResponse } from '../util/resolver';
 
 export interface IBridge {
   urlRegExp: RegExp;
   apiUrl: string;
-  set: (url: string, data: any) => Promise<AxiosResponse<any>>;
+  set: (url: string, data: any) => Promise<ITGServerResponse>;
 }
 
 class Bridge {
@@ -15,10 +16,10 @@ class Bridge {
     this.token = token;
   }
 
-  public async set(url: string, data: any): Promise<AxiosResponse<any>> {
+  public async set(url: string, data: any): Promise<ITGServerResponse> {
     try {
-      const res: AxiosResponse<any> = await axios.post(this.parseUrl(url), data);
-      return res;
+      const res: AxiosResponse<ITGServerResponse> = await axios.post(this.parseUrl(url), data);
+      return res.data;
     } catch (error) {
       console.error('[ERROR]', error);
       throw new Error(error);
