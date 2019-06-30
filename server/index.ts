@@ -7,8 +7,8 @@ import api from './api';
 
 const app = new Koa();
 
-app.use(KoaJson);
-app.use(BodyParser);
+app.use(BodyParser());
+app.use(KoaJson());
 app.use(cors());
 app.use(api.routes());
 

@@ -5,9 +5,10 @@ const api = new KoaRouter();
 const bot = new Bot(process.env.BOT_TOKEN);
 bot.setWebhook(process.env.BOT_WEBHOOK);
 
-api.post(`/${bot.ID}`, async context => {
+api.post(`/${bot.ID}/:action`, async ctx => {
   try {
-    console.log(context);
+    console.log(ctx.params.action);
+    ctx.body = { ok: true, result: false };
   } catch (error) {
     console.error('[ERROR]', error);
     throw new Error(error);
