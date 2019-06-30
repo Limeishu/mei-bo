@@ -26,7 +26,7 @@ class Bridge {
   }
 
   private parseUrl(url: string): string {
-    return url.replace(this.urlRegExp, `${this.apiUrl}${this.token}`);
+    return url.replace(this.urlRegExp, `${this.apiUrl}${this.token}/`);
   }
 }
 
