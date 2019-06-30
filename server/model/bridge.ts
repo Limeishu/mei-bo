@@ -4,7 +4,7 @@ import { ITGServerResponse } from '../util/resolver';
 export interface IBridge {
   urlRegExp: RegExp;
   apiUrl: string;
-  set: (url: string, data: any) => Promise<ITGServerResponse>;
+  send: (url: string, data: any) => Promise<ITGServerResponse>;
 }
 
 class Bridge {
@@ -16,7 +16,7 @@ class Bridge {
     this.token = token;
   }
 
-  public async set(url: string, data: any): Promise<ITGServerResponse> {
+  public async send(url: string, data: any): Promise<ITGServerResponse> {
     try {
       const res: AxiosResponse<ITGServerResponse> = await axios.post(this.parseUrl(url), data);
       return res.data;

@@ -1,5 +1,6 @@
 import uuid, { UUID } from '../util/uuid';
 import Bridge, { IBridge } from './bridge';
+import { IMessage } from './message';
 
 interface IBot {
   ID: UUID;
@@ -15,9 +16,21 @@ class Bot implements IBot {
     this.bridge = new Bridge(this.token);
   }
 
-  public async setWebhook(webhookUrl: string) {
-    const result = await this.bridge.set('bot://setWebhook', {
+  public async setWebhook(webhookUrl: string): Promise<void> {
+    const result = await this.bridge.send('bot://setWebhook', {
       url: `${webhookUrl}/${this.ID}`
+    });
+
+    console.log(result);
+  }
+
+  public async sendMessage(chatId: number | string, msg: IMessage): Promise<void> {
+    const result = await this.bridge.send('bot://sendMessage', {
+      chat_id: chatId,
+      text: msg.text,
+      parse_mode: msg.parseMode !== 'Normal' ? msg.parseMode : null,
+      disable_web_page_preview: !msg.options.webPageReview,
+      disable_notification: !msg.options.notification
     });
 
     console.log(result);
