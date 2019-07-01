@@ -23,7 +23,7 @@ class Server implements IServer {
 }
 
 class ServerAgent implements IServerAgent {
-  public monitList: IServer[];
+  public monitList: IServer[] = [];
 
   public async test(serverName: IServer['name']): Promise<IServer> {
     const res = await ping.promise.probe(serverName);
