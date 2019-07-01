@@ -42,6 +42,8 @@ class Bot implements IBot {
     const msgText = data.message.text;
     const replyMsg = await commandHandler.call(this, msgText.split(' ')[0])(msgText);
     console.log(replyMsg);
+
+    await this.sendMessage(data.message.chat.id, replyMsg);
   }
 }
 
