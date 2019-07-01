@@ -9,7 +9,7 @@ const agent = {
 
 export const agentParser = async (args: any[]): Promise<string> => {
   const agentType = args[1].slice(1);
-  const targetServer = args[3] !== '--all' ? args[3] : null;
+  const targetPoint = args[3] !== '--all' ? args[3] : null;
   const hasAllOption = args[3] === '--all';
 
   switch (args[2]) {
@@ -17,24 +17,24 @@ export const agentParser = async (args: any[]): Promise<string> => {
       let result: string = `${firstUpperCase(agentType)}\n\n`;
 
       if (hasAllOption) {
-        const _result = await Promise.all(agent[agentType].monitList.map(async server => {
-          const status = await agent[agentType].test(server);
+        const _result = await Promise.all(agent[agentType].monitList.map(async point => {
+          const status = await agent[agentType].test(point);
           return `${status.isAlive ? '⭕️' : '❌'} ${wrapper.Big(status.name)}${status.ip ? ' @' + status.ip : '' }`;
         }));
 
         result = _result.join('\n');
       } else {
-        const status = await agent[agentType].test(targetServer);
+        const status = await agent[agentType].test(targetPoint);
         result = `${status.isAlive ? '⭕️' : '❌'} ${wrapper.Big(status.name)}${status.ip ? ' @' + status.ip : '' }`;
       }
 
       return result;
     case 'monit':
-      agent[agentType].monit(targetServer);
-      return `${firstUpperCase(agentType)} ${targetServer} added to minit list.`;
+      agent[agentType].monit(targetPoint);
+      return `${firstUpperCase(agentType)} ${targetPoint} added to minit list.`;
     case 'del':
-      agent[agentType].del(targetServer);
-      return `${firstUpperCase(agentType)} ${targetServer} removed to minit list.`;
+      agent[agentType].del(targetPoint);
+      return `${firstUpperCase(agentType)} ${targetPoint} removed to minit list.`;
     default:
       return;
   }
