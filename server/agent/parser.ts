@@ -1,10 +1,23 @@
 import ServerAgent from './server';
 import { firstUpperCase, wrapper } from '../util/formatter';
+import { IServerAgent, IServer } from './server';
 
 const serverAgent = new ServerAgent();
 
-const agent = {
+interface IAgent {
+  server: IServerAgent;
+}
+
+const agents: IAgent = {
   server: serverAgent
+};
+
+const testPoint = async (agent: IServerAgent, pointName: IServer['name']) => {
+  return await agent.test(pointName);
+};
+
+const getStatus = (point: IServer) => {
+  return `${point.isAlive ? '⭕️' : '❌'} ${wrapper.Big(point.name)}${point.ip ? ' @' + point.ip : '' }`;
 };
 
 export const agentParser = async (args: any[]): Promise<string> => {
@@ -12,28 +25,26 @@ export const agentParser = async (args: any[]): Promise<string> => {
   const targetPoint = args[3] !== '--all' ? args[3] : null;
   const hasAllOption = args[3] === '--all';
 
+  const agent: IServerAgent = agents[agentType];
+
   switch (args[2]) {
     case 'stat':
       let result: string = `${firstUpperCase(agentType)}\n\n`;
 
       if (hasAllOption) {
-        const _result = await Promise.all(agent[agentType].monitList.map(async point => {
-          const status = await agent[agentType].test(point);
-          return `${status.isAlive ? '⭕️' : '❌'} ${wrapper.Big(status.name)}${status.ip ? ' @' + status.ip : '' }`;
-        }));
-
-        result = _result.join('\n');
+        const pointResult = await Promise.all(agent.monitList.map(point => (testPoint(agent, point.name))));
+        result += pointResult.map(point => (getStatus(point))).join('\n');
       } else {
-        const status = await agent[agentType].test(targetPoint);
-        result = `${status.isAlive ? '⭕️' : '❌'} ${wrapper.Big(status.name)}${status.ip ? ' @' + status.ip : '' }`;
+        const pointResult = await testPoint(agent, targetPoint);
+        result += getStatus(pointResult);
       }
 
       return result;
     case 'monit':
-      agent[agentType].monit(targetPoint);
+      await agent.monit(targetPoint);
       return `${firstUpperCase(agentType)} ${targetPoint} added to monit list.`;
     case 'del':
-      agent[agentType].del(targetPoint);
+      agent.del(targetPoint);
       return `${firstUpperCase(agentType)} ${targetPoint} removed to monit list.`;
     default:
       return;

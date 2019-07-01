@@ -8,6 +8,9 @@ export interface IServer {
 
 export interface IServerAgent {
   monitList: IServer[];
+  test: (serverName: IServer['name']) => Promise<IServer>;
+  monit: (serverName: IServer['name']) => Promise<void>;
+  del: (serverName: IServer['name']) => void;
 }
 
 class Server implements IServer {
