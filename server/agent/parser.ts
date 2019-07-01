@@ -9,15 +9,15 @@ const agent = {
 
 export const agentParser = async (args: any[]): Promise<string> => {
   const agentType = args[1].slice(1);
-  const targetServer = args[3].split(' --all')[0] !== '--all' ? args[3] : null;
-  const hasAllOption = args[3].split(' --all')[1] === '';
+  const targetServer = args[3] !== '--all' ? args[3] : null;
+  const hasAllOption = args[3] === '--all';
 
   switch (args[2]) {
     case 'stat':
       let result: string = `${firstUpperCase(agentType)}\n\n`;
 
       if (hasAllOption) {
-        let _result = await Promise.all(agent[agentType].monitList.map(async server => {
+        const _result = await Promise.all(agent[agentType].monitList.map(async server => {
           const status = await agent[agentType].test(server);
           return `${status.isAlive ? '⭕️' : '❌'} ${wrapper.Big(status.name)}${status.ip ? ' @' + status.ip : '' }`;
         }));
