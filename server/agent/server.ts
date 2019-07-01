@@ -26,7 +26,7 @@ class ServerAgent implements IServerAgent {
   public monitList: IServer[] = [];
 
   public async test(serverName: IServer['name']): Promise<IServer> {
-    const res = await ping.promise.probe(serverName);
+    const res = await ping.promise.probe(serverName, { extra: [ '-4' ] });
     return new Server(res.host, res.numeric_host, res.alive);
   }
 
