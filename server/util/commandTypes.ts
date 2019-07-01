@@ -13,7 +13,7 @@ const commandTypes = {
 
   SITE: {
     command: '/site',
-    regexp: /(\/server) (stat|monit|del) (.+)/,
+    regexp: /(\/site) (stat|monit|del) (.+)/,
     help: '/site [stat | monit | del] [server-name] [--all]'
   }
 };
