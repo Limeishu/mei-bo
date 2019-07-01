@@ -1,7 +1,5 @@
 import KoaRouter from 'koa-router';
 import Bot from './model/bot';
-import commandHandler from './util/commandHandler';
-import { ITGServerMessage } from './util/resolver';
 
 const api = new KoaRouter();
 const bot = new Bot(process.env.BOT_TOKEN);
