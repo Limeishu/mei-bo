@@ -29,8 +29,12 @@ class SiteAgent implements ISiteAgent {
   public monitList: ISite[] = [];
 
   public async test(siteName: ISite['name']): Promise<ISite> {
-    const res = await axios.get(siteName);
-    return new Site(siteName, null, res.status === 200);
+    try {
+      const res = await axios.get(siteName);
+      return new Site(siteName, null, res.status === 200);
+    } catch (error) {
+      return new Site(siteName, null, false);
+    }
   }
 
   public async monit(siteName: ISite['name']): Promise<void> {
