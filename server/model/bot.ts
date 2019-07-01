@@ -38,9 +38,10 @@ class Bot implements IBot {
     console.log(result);
   }
 
-  public receivedMessage(data: ITGServerMessage): void {
+  public async receivedMessage(data: ITGServerMessage): Promise<void> {
     const msgText = data.message.text;
-    commandHandler.call(this, msgText.split(' ')[0]);
+    const replyMsg = await commandHandler.call(this, msgText.split(' ')[0])(msgText);
+    console.log(replyMsg);
   }
 }
 

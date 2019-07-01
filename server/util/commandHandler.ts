@@ -22,7 +22,7 @@ const helpTextGen = (helpType: string): string => {
 };
 
 const commands = {
-  [commandTypes.HELP.command](rawCommand: string) {
+  [commandTypes.HELP.command]() {
     return new Message(helpTextGen('all'), 'Markdown');
   },
 
