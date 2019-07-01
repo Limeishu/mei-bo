@@ -26,7 +26,7 @@ const commands = {
     return new Message(helpTextGen('all'), 'Markdown');
   },
 
-  [commandTypes.SERVER.command](rawCommand: string) {
+  async [commandTypes.SERVER.command](rawCommand: string) {
     const helpText =
     `
       ${wrapper.Big('Syntax Error')}
@@ -38,7 +38,7 @@ const commands = {
       return new Message(helpText, 'Markdown');
     }
 
-    const result = agentParser(args);
+    const result = await agentParser(args);
     if (!result || result === null) {
       return new Message(helpText, 'Markdown');
     }
@@ -46,7 +46,7 @@ const commands = {
     return new Message(result, 'Markdown');
   },
 
-  [commandTypes.SITE.command](rawCommand: string) {
+  async [commandTypes.SITE.command](rawCommand: string) {
     const helpText =
     `
       ${wrapper.Big('Syntax Error')}
@@ -58,7 +58,7 @@ const commands = {
       return new Message(helpText, 'Markdown');
     }
 
-    const result = agentParser(args);
+    const result = await agentParser(args);
     if (!result || result === null) {
       return new Message(helpText, 'Markdown');
     }
