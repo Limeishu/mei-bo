@@ -40,7 +40,7 @@ class Bot implements IBot {
 
   public receivedMessage(data: ITGServerMessage): void {
     const msgText = data.message.text;
-    commandHandler(msgText.split(' ')[0]);
+    commandHandler.call(this, msgText.split(' ')[0]);
   }
 }
 
