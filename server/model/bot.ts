@@ -45,6 +45,18 @@ class Bot implements IBot {
 
     await this.sendMessage(data.message.chat.id, replyMsg);
   }
+
+  public async agentBroadcastHook(targetChatId: number): Promise<void> {
+    const serverStatusMsg = await commandHandler.call(this, '/server')('/server stat --all');
+    console.log(serverStatusMsg);
+
+    await this.sendMessage(targetChatId, serverStatusMsg);
+
+    const siteStatusMsg = await commandHandler.call(this, '/site')('/site stat --all');
+    console.log(siteStatusMsg);
+
+    await this.sendMessage(targetChatId, siteStatusMsg);
+  }
 }
 
 export default Bot;
