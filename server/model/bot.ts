@@ -1,6 +1,8 @@
 import uuid, { UUID } from '../util/uuid';
 import Bridge, { IBridge } from './bridge';
 import { IMessage } from './message';
+import { ITGServerMessage } from '../util/resolver';
+import commandHandler from '../util/commandHandler';
 
 interface IBot {
   ID: UUID;
@@ -36,6 +38,10 @@ class Bot implements IBot {
     console.log(result);
   }
 
+  public receivedMessage(data: ITGServerMessage): void {
+    const msgText = data.message.text;
+    commandHandler(msgText.split(' ')[0]);
+  }
 }
 
 export default Bot;
