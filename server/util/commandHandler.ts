@@ -1,6 +1,7 @@
 import commandTypes from './commandTypes';
 import Message from '../model/message';
 import { agentParser } from '../agent/parser';
+import { wrapper } from './formatter';
 
 const parseCommand = (rawCommand: string, regexp: RegExp): any[] => {
   if (regexp) {
@@ -11,14 +12,11 @@ const parseCommand = (rawCommand: string, regexp: RegExp): any[] => {
 };
 
 const helpTextGen = (helpType: string): string => {
-  const result =
-  '```\n' +
+  const result = wrapper.Code(
     helpType === 'all' ?
-      Object.keys(commandTypes).map(key => `${key}:\n  ${commandTypes[key].help}`).join('\n\n')
-    :
+      Object.keys(commandTypes).map(key => `${key}:\n  ${commandTypes[key].help}`).join('\n\n') :
       commandTypes[helpType].help
-    +
-  '\n```';
+    );
 
   return result;
 };
@@ -31,7 +29,7 @@ const commands = {
   [commandTypes.SERVER.command](rawCommand: string) {
     const helpText =
     `
-      **Syntax Error**
+      ${wrapper.Big('Syntax Error')}
       ${helpTextGen('SERVER')}
     `;
 
@@ -51,7 +49,7 @@ const commands = {
   [commandTypes.SITE.command](rawCommand: string) {
     const helpText =
     `
-      **Syntax Error**
+      ${wrapper.Big('Syntax Error')}
       ${helpTextGen('SITE')}
     `;
 
