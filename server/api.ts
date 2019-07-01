@@ -23,6 +23,15 @@ api
       console.error('[ERROR]', error);
       throw new Error(error);
     }
+  })
+  .post(`/${bot.ID}/reboot`, async ctx => {
+    try {
+      await bot.agentServerRebootHook(ctx.request.body.chatId, ctx.request.body.server);
+      ctx.body = { ok: true, result: false };
+    } catch (error) {
+      console.error('[ERROR]', error);
+      throw new Error(error);
+    }
   });
 
 export default api;

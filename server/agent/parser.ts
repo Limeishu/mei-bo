@@ -49,6 +49,8 @@ export const agentParser = async (args: any[]): Promise<string> => {
     case 'del':
       agent.del(targetPoint);
       return `${firstUpperCase(agentType)} ${targetPoint} removed to monit list.`;
+    case 'onreboot':
+      return `⚠️ Server ${wrapper.Big(targetPoint)} rebooted just now.`;
     default:
       return;
   }

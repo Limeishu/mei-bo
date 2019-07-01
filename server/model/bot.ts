@@ -57,6 +57,13 @@ class Bot implements IBot {
 
     await this.sendMessage(targetChatId, siteStatusMsg);
   }
+
+  public async agentServerRebootHook(targetChatId: number, server: string): Promise<void> {
+    const serverStatusMsg = await commandHandler.call(this, '/server')(`/server onreboot ${server}`);
+    console.log(serverStatusMsg);
+
+    await this.sendMessage(targetChatId, serverStatusMsg);
+  }
 }
 
 export default Bot;

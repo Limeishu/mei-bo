@@ -7,7 +7,7 @@ const commandTypes = {
 
   SERVER: {
     command: '/server',
-    regexp: /(\/server) (stat|monit|del) (.+)/,
+    regexp: /(\/server) (stat|monit|del|onreboot) (.+)/,
     help: '/server [stat | monit | del] [server-name] [--all]'
   },
 
