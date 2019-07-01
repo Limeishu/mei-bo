@@ -1,4 +1,4 @@
-import ping from 'ping';
+import axios from 'axios';
 
 export interface ISite {
   name: string;
@@ -8,9 +8,9 @@ export interface ISite {
 
 export interface ISiteAgent {
   monitList: ISite[];
-  test: (serverName: ISite['name']) => Promise<ISite>;
-  monit: (serverName: ISite['name']) => Promise<void>;
-  del: (serverName: ISite['name']) => void;
+  test: (siteName: ISite['name']) => Promise<ISite>;
+  monit: (siteName: ISite['name']) => Promise<void>;
+  del: (siteName: ISite['name']) => void;
 }
 
 class Site implements ISite {
@@ -28,19 +28,19 @@ class Site implements ISite {
 class SiteAgent implements ISiteAgent {
   public monitList: ISite[] = [];
 
-  public async test(serverName: ISite['name']): Promise<ISite> {
-    const res = await ping.promise.probe(serverName, { extra: [ '-4' ] });
-    return new Site(res.host, res.numeric_host, res.alive);
+  public async test(siteName: ISite['name']): Promise<ISite> {
+    const res = await axios.get(siteName);
+    return new Site(siteName, null, res.status === 200);
   }
 
-  public async monit(serverName: ISite['name']): Promise<void> {
-    const status = await this.test(serverName);
+  public async monit(siteName: ISite['name']): Promise<void> {
+    const status = await this.test(siteName);
     this.monitList.push(status);
   }
 
-  public del(serverName: ISite['name']): void {
-    this.monitList.forEach((server, index) => {
-      if (server.name === serverName) {
+  public del(siteName: ISite['name']): void {
+    this.monitList.forEach((site, index) => {
+      if (site.name === siteName) {
         this.monitList.splice(index, 1);
       }
     });
