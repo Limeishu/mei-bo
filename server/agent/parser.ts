@@ -31,10 +31,10 @@ export const agentParser = async (args: any[]): Promise<string> => {
       return result;
     case 'monit':
       agent[agentType].monit(targetPoint);
-      return `${firstUpperCase(agentType)} ${targetPoint} added to minit list.`;
+      return `${firstUpperCase(agentType)} ${targetPoint} added to monit list.`;
     case 'del':
       agent[agentType].del(targetPoint);
-      return `${firstUpperCase(agentType)} ${targetPoint} removed to minit list.`;
+      return `${firstUpperCase(agentType)} ${targetPoint} removed to monit list.`;
     default:
       return;
   }
